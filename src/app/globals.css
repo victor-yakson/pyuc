@@ -1,0 +1,262 @@
+@import "tailwindcss";
+
+/* ============================================================
+   PYUC — Presidential Youth Unity Cup
+   Design tokens: Nigerian flag (green/white) + premium gold
+   ============================================================ */
+
+@theme inline {
+  /* Brand palette */
+  --color-naija: #008751;
+  --color-naija-light: #12c46b;
+  --color-naija-mid: #00a860;
+  --color-naija-dark: #00381f;
+  --color-naija-deep: #002114;
+
+  --color-gold: #f4c430;
+  --color-gold-soft: #ffd96a;
+  --color-gold-deep: #c8961c;
+
+  --color-ink: #040d09;
+  --color-ink-2: #071a12;
+  --color-ink-3: #0a231a;
+  --color-cloud: #f3faf6;
+
+  /* Fonts (wired in layout.tsx) */
+  --font-display: var(--font-anton);
+  --font-heading: var(--font-oswald);
+  --font-sans: var(--font-inter);
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --background: #040d09;
+  --foreground: #eaf5ee;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(0, 135, 81, 0.22), transparent 60%),
+    radial-gradient(1000px 600px at 100% 0%, rgba(244, 196, 48, 0.08), transparent 55%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ---------- Selection & scrollbar ---------- */
+::selection {
+  background: var(--color-gold);
+  color: #04120a;
+}
+::-webkit-scrollbar {
+  width: 11px;
+}
+::-webkit-scrollbar-track {
+  background: #04120c;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--color-naija), var(--color-naija-dark));
+  border-radius: 99px;
+  border: 2px solid #04120c;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-naija-light);
+}
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display), Impact, sans-serif;
+    letter-spacing: 0.01em;
+  }
+  .font-heading {
+    font-family: var(--font-heading), sans-serif;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(100deg, #fff2c4 0%, #f4c430 40%, #c8961c 60%, #ffe58a 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 6s linear infinite;
+  }
+  .text-gradient-green {
+    background: linear-gradient(100deg, #12c46b, #008751 60%, #00a860);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.25);
+  }
+  .text-outline-gold {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(244, 196, 48, 0.55);
+  }
+
+  /* Card surfaces */
+  .glass {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+  }
+  .glass-gold {
+    border: 1px solid rgba(244, 196, 48, 0.28);
+    box-shadow: 0 0 0 1px rgba(244, 196, 48, 0.05), 0 30px 60px -30px rgba(244, 196, 48, 0.25);
+  }
+
+  .ring-glow-green {
+    box-shadow: 0 0 0 1px rgba(0, 168, 96, 0.4), 0 0 40px -6px rgba(0, 168, 96, 0.45);
+  }
+  .ring-glow-gold {
+    box-shadow: 0 0 0 1px rgba(244, 196, 48, 0.4), 0 0 50px -8px rgba(244, 196, 48, 0.5);
+  }
+
+  .divider-line {
+    background: linear-gradient(90deg, transparent, rgba(244, 196, 48, 0.55), transparent);
+  }
+
+  /* Pitch / mesh backdrops */
+  .bg-pitch {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 46px 46px;
+  }
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+
+  .clip-slant {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+  }
+  .shadow-premium {
+    box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Form fields */
+  .field {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(4, 18, 12, 0.6);
+    padding: 0.75rem 1rem;
+    color: var(--color-cloud);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field::placeholder {
+    color: rgba(234, 245, 238, 0.35);
+  }
+  .field:focus {
+    border-color: rgba(244, 196, 48, 0.6);
+    box-shadow: 0 0 0 3px rgba(244, 196, 48, 0.12);
+  }
+  .field option {
+    background: #071a12;
+    color: var(--color-cloud);
+  }
+}
+
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes kenburns {
+  0% {
+    transform: scale(1.08) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.22) translate(-1.5%, -1.5%);
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+@keyframes gradient-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+.animate-kenburns {
+  animation: kenburns 22s ease-out alternate infinite;
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-spin-slow {
+  animation: spin-slow 34s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

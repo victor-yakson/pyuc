@@ -1,0 +1,572 @@
+"use client";
+
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+
+/**
+ * Site-wide i18n.
+ * Short strings (headings, labels, buttons) are translated in all five languages.
+ * Longer descriptive sentences are translated for English + Nigerian Pidgin; the
+ * Hausa / Yorùbá / Igbo variants fall back to English until a native speaker
+ * supplies them.  ⚠️ Have all non-English copy reviewed before an official launch.
+ * Missing keys fall back to English automatically.
+ */
+
+export type Lang = "en" | "pcm" | "ha" | "yo" | "ig";
+
+export const LANGS: { code: Lang; label: string; native: string }[] = [
+  { code: "en", label: "EN", native: "English" },
+  { code: "pcm", label: "PCM", native: "Pidgin" },
+  { code: "ha", label: "HA", native: "Hausa" },
+  { code: "yo", label: "YO", native: "Yorùbá" },
+  { code: "ig", label: "IG", native: "Igbo" },
+];
+
+type Dict = Record<string, string>;
+
+const en = {
+  // Nav
+  navMission: "The Mission",
+  navZones: "The Zones",
+  navFormat: "Format",
+  navTrophy: "The Trophy",
+  navFixtures: "Fixtures",
+  navBracket: "Bracket",
+  navRegister: "Register Zone",
+  // Hero
+  heroBadge: "Presidential Youth Unity Cup • PYUC 2026",
+  heroTitle1: "One Nation.",
+  heroTitle2: "One Game.",
+  heroSubtitle:
+    "Six geo-political zones. One Federal Capital at the heart. A single golden trophy — the nationwide tournament of the Office of the Presidency uniting every Nigerian youth through the beautiful game.",
+  ctaPrimary: "Represent Your Zone",
+  ctaSecondary: "Watch The Trailer",
+  location: "Grand Final · Eagle Stadium, Abuja · Live nationwide",
+  cdTitle: "Kick-off Countdown",
+  uDays: "Days",
+  uHrs: "Hrs",
+  uMin: "Min",
+  uSec: "Sec",
+  sTeams: "Teams",
+  sStates: "States",
+  sPrize: "Prize Pool",
+  // About
+  aboutEyebrow: "The Mission",
+  aboutTitle: "United By The",
+  aboutAccent: "Beautiful Game",
+  aboutSub:
+    "The Presidential Youth Unity Cup (PYUC) is more than a tournament. It is a national movement — convening the six geo-political zones and the Federal Capital Territory to prove that what unites Nigeria will always be greater than what divides her.",
+  pRepresentation: "Representation",
+  pUnity: "Unity",
+  pOpportunity: "Opportunity",
+  pLegacy: "Legacy",
+  pRepresentationBody:
+    "Every zone fields its finest young talent — no region left behind, all under one flag.",
+  pUnityBody:
+    "Rivalry on the pitch, brotherhood off it. Sport as the bridge across every divide.",
+  pOpportunityBody:
+    "A national stage and scouting pathway for the next generation of Super Eagles.",
+  pLegacyBody:
+    "A presidential platform building lasting infrastructure and pride in Nigerian youth.",
+  stZonalTeams: "Zonal Teams",
+  stStates: "States United",
+  stLGAs: "LGAs Scouted",
+  stDream: "Nigerians, One Dream",
+  // Zones
+  zonesEyebrow: "The Contenders",
+  zonesTitle: "Six Zones,",
+  zonesAccent: "One Capital",
+  zonesSub:
+    "Tap a zone to meet the region. Every spoke leads to the FCT — the unifying heart where the six geo-political zones converge as one nation.",
+  mapView: "Map",
+  orbitView: "Constellation",
+  mapCaption: "Federal Republic of Nigeria · 6 geo-political zones + FCT",
+  // Format
+  formatEyebrow: "The Road To Glory",
+  formatTitle: "How Champions Are",
+  formatAccent: "Forged",
+  formatSub:
+    "From grassroots trials in every local government to the floodlit grand final — five stages stand between a zone and immortality.",
+  // Bracket
+  bracketEyebrow: "Knockout Stage",
+  bracketTitle: "The Road To The",
+  bracketAccent: "Final",
+  bracketSub:
+    "Four zones survive the group stage. Two nights of sudden glory decide who lifts the gold at the Eagle Stadium, Abuja.",
+  bkChampionOf: "Champion of Nigeria",
+  bkToBeCrowned: "To Be Crowned",
+  bkChampionNote:
+    "Lifts the Golden Champion Trophy & the ₦150M zonal development grant.",
+  bkThirdTag: "Third-Place Play-off · Dec 13",
+  bkWinnerSf1: "Winner SF1",
+  bkWinnerSf2: "Winner SF2",
+  bkTbd: "To be decided",
+  // Trophy
+  trophyEyebrow: "The Ultimate Prize",
+  trophyTitle: "The Golden",
+  trophyAccent: "Champion Trophy",
+  trophySub:
+    "Cast in gold and lifted only by the finest, the Champion Trophy is the symbol of a united Nigeria's sporting excellence — and the reward for the zone that conquers them all.",
+  trophyCta: "Chase The Gold",
+  // Fixtures
+  fixturesEyebrow: "Match Centre",
+  fixturesTitle: "Upcoming",
+  fixturesAccent: "Fixtures",
+  fixturesSub: "The road to the final, week by week. Kick-off times in WAT.",
+  fixturesFull: "Full Schedule →",
+  fixturesFooter: "Every match streamed live",
+  // Gallery
+  galleryEyebrow: "The Atmosphere",
+  galleryTitle: "Feel The",
+  galleryAccent: "Passion",
+  gallerySub:
+    "From the terraces to the turf — a nation comes alive when the zones collide.",
+  // Sponsors
+  sponsorsAuspices: "Under the auspices of the Office of the Presidency",
+  sponsorsPartners: "Delivered in partnership with",
+  // Register
+  regJoin: "Join The Movement",
+  regTitle: "Represent your",
+  regAccent: "zone",
+  regSub:
+    "Players, coaches and supporters — register your interest and be part of the tournament uniting a nation. Trials open across all six zones and the FCT, with the Grand Final live at the Eagle Stadium, Abuja.",
+  regLga: "LGA trials",
+  regFree: "To enter",
+  regAge: "Age category",
+  regFormTag: "Registration",
+  regName: "Full name",
+  regEmail: "Email",
+  regPhone: "Phone",
+  regZone: "Your zone",
+  regRole: "Role",
+  regSelectZone: "Select zone",
+  regSelectRole: "Select role",
+  rolePlayer: "Player",
+  roleCoach: "Coach",
+  roleVolunteer: "Volunteer",
+  roleSupporter: "Supporter",
+  regButton: "Secure My Spot",
+  regSubmitting: "Submitting…",
+  regSuccess: "You're in!",
+  regSuccessMsg:
+    "Your interest has been received. Watch your inbox for trial dates in your zone.",
+  regAnother: "Register another",
+  regError: "Something went wrong. Please try again in a moment.",
+  regConduct: "By registering you agree to the tournament code of conduct.",
+  // Footer
+  footerTagline:
+    "One Nation. One Game. The Presidential Youth Unity Cup (PYUC) unites Nigeria's six geo-political zones and the Federal Capital Territory through the power of football — building the champions of tomorrow.",
+};
+
+type Keys = keyof typeof en;
+
+const pcm: Dict = {
+  navMission: "Di Mission",
+  navZones: "Di Zones",
+  navFormat: "Format",
+  navTrophy: "Di Trophy",
+  navFixtures: "Matches",
+  navBracket: "Bracket",
+  navRegister: "Register Zone",
+  heroTitle1: "One Nation.",
+  heroTitle2: "One Game.",
+  heroSubtitle:
+    "Six geo-political zones. One Federal Capital for di center. One golden trophy — na di nationwide tournament wey di Office of di Presidency dey use unite every Naija youth through di beautiful game.",
+  ctaPrimary: "Represent Your Zone",
+  ctaSecondary: "Watch Di Trailer",
+  location: "Grand Final · Eagle Stadium, Abuja · Everybody go watch",
+  cdTitle: "Kick-off Countdown",
+  sTeams: "Teams",
+  sStates: "States",
+  sPrize: "Prize Money",
+  aboutEyebrow: "Di Mission",
+  aboutTitle: "United By Di",
+  aboutAccent: "Beautiful Game",
+  aboutSub:
+    "Na more than tournament. Na national movement wey dey bring di six geo-political zones and di FCT together to show say wetin unite Naija pass wetin dey divide am.",
+  pRepresentation: "Representation",
+  pUnity: "Unity",
+  pOpportunity: "Opportunity",
+  pLegacy: "Legacy",
+  pRepresentationBody:
+    "Every zone dey bring im best young talent — no region go dey left behind, all under one flag.",
+  pUnityBody:
+    "Rivalry for di pitch, brotherhood outside am. Sport na di bridge wey join every divide.",
+  pOpportunityBody:
+    "National stage and scouting pathway for di next generation of Super Eagles.",
+  pLegacyBody:
+    "Presidential platform wey dey build lasting infrastructure and pride for Naija youth.",
+  stZonalTeams: "Zonal Teams",
+  stStates: "States United",
+  stLGAs: "LGAs Scouted",
+  stDream: "Naija, One Dream",
+  zonesEyebrow: "Di Contenders",
+  zonesTitle: "Six Zones,",
+  zonesAccent: "One Capital",
+  zonesSub:
+    "Tap any zone to meet di region. Every line dey lead go di FCT — di center wey di six zones dey join as one nation.",
+  formatEyebrow: "Road To Glory",
+  formatTitle: "How Champions Dey",
+  formatAccent: "Take Form",
+  formatSub:
+    "From grassroots trials for every local government reach di grand final wey get light — five stages dey between one zone and greatness.",
+  bracketEyebrow: "Knockout Stage",
+  bracketTitle: "Di Road To Di",
+  bracketAccent: "Final",
+  bracketSub:
+    "Four zones go comot from di group stage. Two nights of sudden glory go decide who go lift di gold for Eagle Stadium, Abuja.",
+  bkChampionOf: "Champion of Naija",
+  bkToBeCrowned: "Dem never crown am",
+  bkChampionNote:
+    "Go lift di Golden Champion Trophy & di ₦150M zonal development grant.",
+  bkThirdTag: "Third-Place Play-off · Dec 13",
+  bkWinnerSf1: "Winner SF1",
+  bkWinnerSf2: "Winner SF2",
+  bkTbd: "Dem never decide",
+  trophyEyebrow: "Di Ultimate Prize",
+  trophyTitle: "Di Golden",
+  trophyAccent: "Champion Trophy",
+  trophySub:
+    "Dem cast am for gold, na only di best fit lift am. Di Champion Trophy na di sign of one united Naija sporting excellence — and di reward for di zone wey conquer everybody.",
+  trophyCta: "Chase Di Gold",
+  fixturesEyebrow: "Match Centre",
+  fixturesTitle: "Upcoming",
+  fixturesAccent: "Matches",
+  fixturesSub: "Di road to di final, week by week. Kick-off times dey for WAT.",
+  fixturesFull: "Full Schedule →",
+  fixturesFooter: "Every match go stream live",
+  galleryEyebrow: "Di Atmosphere",
+  galleryTitle: "Feel Di",
+  galleryAccent: "Passion",
+  gallerySub:
+    "From di stands to di pitch — di whole nation dey come alive wen di zones clash.",
+  sponsorsAuspices: "Under di Office of di Presidency",
+  sponsorsPartners: "For partnership with",
+  regJoin: "Join Di Movement",
+  regTitle: "Represent your",
+  regAccent: "zone",
+  regSub:
+    "Players, coaches and supporters — register your interest and be part of di tournament wey dey unite di nation. Trials dey open for all six zones and di FCT, and di Grand Final go dey live for Eagle Stadium, Abuja.",
+  regLga: "LGA trials",
+  regFree: "To enter",
+  regAge: "Age category",
+  regFormTag: "Registration",
+  regName: "Full name",
+  regEmail: "Email",
+  regPhone: "Phone number",
+  regZone: "Your zone",
+  regRole: "Role",
+  regSelectZone: "Choose zone",
+  regSelectRole: "Choose role",
+  rolePlayer: "Player",
+  roleCoach: "Coach",
+  roleVolunteer: "Volunteer",
+  roleSupporter: "Supporter",
+  regButton: "Secure My Spot",
+  regSubmitting: "Dey submit…",
+  regSuccess: "You don enter!",
+  regSuccessMsg:
+    "We don receive your interest. Check your inbox for trial dates for your zone.",
+  regAnother: "Register another",
+  regError: "Something no work. Abeg try again small time.",
+  regConduct: "As you register, you agree to di tournament code of conduct.",
+  footerTagline:
+    "One Nation. One Game. Di Presidential Youth Unity Cup (PYUC) dey unite Naija six geo-political zones and di FCT through football — dey build di champions of tomorrow.",
+};
+
+const ha: Dict = {
+  navMission: "Manufa",
+  navZones: "Yankuna",
+  navFormat: "Tsari",
+  navTrophy: "Kofi",
+  navFixtures: "Wasanni",
+  navBracket: "Matakai",
+  navRegister: "Yi Rijista",
+  heroTitle1: "Al'umma Ɗaya.",
+  heroTitle2: "Wasa Ɗaya.",
+  heroSubtitle:
+    "Yankuna shida na siyasa. Babban Birni ɗaya a tsakiya. Kofi na zinariya ɗaya — gasar ƙasa baki ɗaya ta Ofishin Shugaban Ƙasa da ke haɗa kan matasan Najeriya ta hanyar wasan ƙwallo.",
+  ctaPrimary: "Wakilci Yankinka",
+  ctaSecondary: "Kalli Bidiyo",
+  location: "Wasan Ƙarshe · Filin Eagle, Abuja · Za a nuna ko'ina",
+  cdTitle: "Ƙidayar Farawa",
+  uDays: "Kwana",
+  uHrs: "Awa",
+  uMin: "Minti",
+  uSec: "Daƙiƙa",
+  sTeams: "Ƙungiyoyi",
+  sStates: "Jihohi",
+  sPrize: "Kyauta",
+  aboutEyebrow: "Manufa",
+  aboutTitle: "Haɗe Ta Hanyar",
+  aboutAccent: "Wasan Ƙwallo",
+  pRepresentation: "Wakilci",
+  pUnity: "Haɗin Kai",
+  pOpportunity: "Dama",
+  pLegacy: "Gado",
+  stZonalTeams: "Ƙungiyoyin Yanki",
+  stStates: "Jihohin Haɗe",
+  stLGAs: "Ƙananan Hukumomi",
+  stDream: "'Yan Najeriya, Buri Ɗaya",
+  zonesEyebrow: "'Yan Takara",
+  zonesTitle: "Yankuna Shida,",
+  zonesAccent: "Babban Birni Ɗaya",
+  formatEyebrow: "Hanya Zuwa Ɗaukaka",
+  formatTitle: "Yadda Ake",
+  formatAccent: "Ƙera Zakaru",
+  bracketEyebrow: "Matakin Fitarwa",
+  bracketTitle: "Hanya Zuwa",
+  bracketAccent: "Ƙarshe",
+  bkChampionOf: "Zakaran Najeriya",
+  bkToBeCrowned: "Za a Naɗa",
+  bkThirdTag: "Wasan Matsayi na Uku · Dis 13",
+  bkWinnerSf1: "Wanda ya ci SF1",
+  bkWinnerSf2: "Wanda ya ci SF2",
+  bkTbd: "Ba a tantance ba",
+  trophyEyebrow: "Babbar Kyauta",
+  trophyTitle: "Kofin Zinare Na",
+  trophyAccent: "Zakara",
+  trophyCta: "Bi Zinaren",
+  fixturesEyebrow: "Cibiyar Wasanni",
+  fixturesTitle: "Wasanni Masu",
+  fixturesAccent: "Zuwa",
+  fixturesFull: "Cikakken Jadawali →",
+  fixturesFooter: "Za a watsa kowane wasa kai tsaye",
+  galleryEyebrow: "Yanayin",
+  galleryTitle: "Ji",
+  galleryAccent: "Sha'awa",
+  sponsorsAuspices: "Ƙarƙashin Ofishin Shugaban Ƙasa",
+  sponsorsPartners: "An gabatar da haɗin gwiwa da",
+  regJoin: "Shiga Ƙungiyar",
+  regTitle: "Wakilci",
+  regAccent: "yankinka",
+  regLga: "Gwaje-gwajen ƙananan hukumomi",
+  regFree: "Kyauta shiga",
+  regAge: "Rukunin shekaru",
+  regFormTag: "Rijista",
+  regName: "Cikakken Suna",
+  regEmail: "Imel",
+  regPhone: "Waya",
+  regZone: "Yankinka",
+  regRole: "Matsayi",
+  regSelectZone: "Zaɓi yanki",
+  regSelectRole: "Zaɓi matsayi",
+  rolePlayer: "Ɗan wasa",
+  roleCoach: "Kocì",
+  roleVolunteer: "Mai sa kai",
+  roleSupporter: "Magoyi",
+  regButton: "Tabbatar da Wurina",
+  regSubmitting: "Ana aikawa…",
+  regSuccess: "Ka shiga!",
+  regAnother: "Yi rijista wani",
+};
+
+const yo: Dict = {
+  navMission: "Ète Wa",
+  navZones: "Àwọn Agbègbè",
+  navFormat: "Ìlànà",
+  navTrophy: "Ife Ẹ̀yẹ",
+  navFixtures: "Àwọn Ìdíje",
+  navBracket: "Àtòjọ",
+  navRegister: "Forúkọsílẹ̀",
+  heroTitle1: "Orílẹ̀-èdè Kan.",
+  heroTitle2: "Eré Kan.",
+  heroSubtitle:
+    "Agbègbè òṣèlú mẹ́fà. Olú-ìlú Àpapọ̀ kan ní àárín. Ife wúrà kan ṣoṣo — ìdíje orílẹ̀-èdè tí Ọ́fíìsì Ààrẹ ń ṣe láti so gbogbo ọ̀dọ́ Nàìjíríà pọ̀ nípasẹ̀ eré bọ́ọ̀lù.",
+  ctaPrimary: "Ṣojú Agbègbè Rẹ",
+  ctaSecondary: "Wo Fídíò",
+  location: "Ìdíje Ìkẹyìn · Pápá Eagle, Abuja · Yóò hàn níbi gbogbo",
+  cdTitle: "Àkókò Ìbẹ̀rẹ̀",
+  uDays: "Ọjọ́",
+  uHrs: "Wákàtí",
+  uMin: "Ìṣẹ́jú",
+  uSec: "Ìṣẹ́jú-ààyá",
+  sTeams: "Àwọn Ẹgbẹ́",
+  sStates: "Ìpínlẹ̀",
+  sPrize: "Èrè",
+  aboutEyebrow: "Ète Wa",
+  aboutTitle: "Ìṣọ̀kan Nípasẹ̀",
+  aboutAccent: "Eré Ẹlẹ́wà",
+  pRepresentation: "Ìdásí",
+  pUnity: "Ìṣọ̀kan",
+  pOpportunity: "Àǹfààní",
+  pLegacy: "Ogún",
+  stZonalTeams: "Ẹgbẹ́ Agbègbè",
+  stStates: "Ìpínlẹ̀ Ìṣọ̀kan",
+  stLGAs: "Àwọn LGA",
+  stDream: "Ọmọ Nàìjíríà, Àlá Kan",
+  zonesEyebrow: "Àwọn Olùdíje",
+  zonesTitle: "Agbègbè Mẹ́fà,",
+  zonesAccent: "Olú-ìlú Kan",
+  formatEyebrow: "Ọ̀nà Sí Ògo",
+  formatTitle: "Bí A Ṣe Ń Ṣẹ̀dá",
+  formatAccent: "Àwọn Akọni",
+  bracketEyebrow: "Ìpele Ìparun",
+  bracketTitle: "Ọ̀nà Sí Ìdíje",
+  bracketAccent: "Ìkẹyìn",
+  bkChampionOf: "Aṣáájú Nàìjíríà",
+  bkToBeCrowned: "Yóò Jẹ Adé",
+  bkThirdTag: "Ìdíje Ipò Kẹta · Dís 13",
+  bkWinnerSf1: "Olùborí SF1",
+  bkWinnerSf2: "Olùborí SF2",
+  bkTbd: "A kò tíì pinnu",
+  trophyEyebrow: "Èrè Gíga",
+  trophyTitle: "Ife Wúrà Ti",
+  trophyAccent: "Aṣáájú",
+  trophyCta: "Lépa Wúrà",
+  fixturesEyebrow: "Ilé Ìdíje",
+  fixturesTitle: "Àwọn Ìdíje Tí Ń",
+  fixturesAccent: "Bọ̀",
+  fixturesFull: "Gbogbo Ètò →",
+  fixturesFooter: "A ó gbé gbogbo ìdíje lọ tààrà",
+  galleryEyebrow: "Ojú-ọjọ́",
+  galleryTitle: "Ní Ìmọ̀lára",
+  galleryAccent: "Ìfẹ́",
+  sponsorsAuspices: "Lábẹ́ Ọ́fíìsì Ààrẹ",
+  sponsorsPartners: "Ní ìfọwọ́sowọ́pọ̀ pẹ̀lú",
+  regJoin: "Darapọ̀ Mọ́ Ìgbésẹ̀",
+  regTitle: "Ṣojú",
+  regAccent: "agbègbè rẹ",
+  regLga: "Ìdánwò LGA",
+  regFree: "Ọ̀fẹ́ láti wọlé",
+  regAge: "Ẹ̀ka ọjọ́-orí",
+  regFormTag: "Ìforúkọsílẹ̀",
+  regName: "Orúkọ Kíkún",
+  regEmail: "Ímeèlì",
+  regPhone: "Fóònù",
+  regZone: "Agbègbè Rẹ",
+  regRole: "Ipa",
+  regSelectZone: "Yan agbègbè",
+  regSelectRole: "Yan ipa",
+  rolePlayer: "Òṣèré",
+  roleCoach: "Olùkọ́",
+  roleVolunteer: "Olùyọ̀ǹda",
+  roleSupporter: "Alátìlẹyìn",
+  regButton: "Dá Ààyè Mi Dúró",
+  regSubmitting: "Ń fi ránṣẹ́…",
+  regSuccess: "O wọlé!",
+  regAnother: "Forúkọ ẹlòmíràn",
+};
+
+const ig: Dict = {
+  navMission: "Ebumnuche",
+  navZones: "Mpaghara",
+  navFormat: "Usoro",
+  navTrophy: "Iko",
+  navFixtures: "Egwuregwu",
+  navBracket: "Nhazi",
+  navRegister: "Debanye Aha",
+  heroTitle1: "Otu Mba.",
+  heroTitle2: "Otu Egwuregwu.",
+  heroSubtitle:
+    "Mpaghara ndọrọndọrọ ọchịchị isii. Otu Isi Obodo Etiti n'etiti. Otu iko ọlaedo — asọmpi mba niile nke Ụlọ Ọrụ Onye Isi Ala na-eji jikọta ndị ntorọbịa Naịjịrịa niile site na egwuregwu bọọlụ.",
+  ctaPrimary: "Nnọchite Mpaghara Gị",
+  ctaSecondary: "Lee Vidiyo",
+  location: "Asọmpi Ikpeazụ · Ọgba Egwuregwu Eagle, Abuja · A ga-egosi ya ebe niile",
+  cdTitle: "Ọgụgụ Mmalite",
+  uDays: "Ụbọchị",
+  uHrs: "Awa",
+  uMin: "Nkeji",
+  uSec: "Sekọnd",
+  sTeams: "Otu",
+  sStates: "Steeti",
+  sPrize: "Ihe Nrite",
+  aboutEyebrow: "Ebumnuche",
+  aboutTitle: "Jikọtara Site na",
+  aboutAccent: "Egwuregwu Mara Mma",
+  pRepresentation: "Nnọchite",
+  pUnity: "Ịdị n'Otu",
+  pOpportunity: "Ohere",
+  pLegacy: "Ihe Nketa",
+  stZonalTeams: "Otu Mpaghara",
+  stStates: "Steeti Jikọtara",
+  stLGAs: "LGA Enyochara",
+  stDream: "Ndị Naịjịrịa, Otu Nrọ",
+  zonesEyebrow: "Ndị Asọmpi",
+  zonesTitle: "Mpaghara Isii,",
+  zonesAccent: "Otu Isi Obodo",
+  formatEyebrow: "Ụzọ Gaa n'Ebube",
+  formatTitle: "Ka Esi Akpụ",
+  formatAccent: "Ndị Mmeri",
+  bracketEyebrow: "Nkeji Mkpochapu",
+  bracketTitle: "Ụzọ Gaa na",
+  bracketAccent: "Ikpeazụ",
+  bkChampionOf: "Onye Mmeri Naịjịrịa",
+  bkToBeCrowned: "A ga-eme Eze",
+  bkThirdTag: "Egwuregwu Ọnọdụ Atọ · Dis 13",
+  bkWinnerSf1: "Onye Meriri SF1",
+  bkWinnerSf2: "Onye Meriri SF2",
+  bkTbd: "A ka ekpebibeghị",
+  trophyEyebrow: "Nnukwu Ihe Nrite",
+  trophyTitle: "Iko Ọlaedo nke",
+  trophyAccent: "Onye Mmeri",
+  trophyCta: "Chụọ Ọlaedo",
+  fixturesEyebrow: "Ebe Egwuregwu",
+  fixturesTitle: "Egwuregwu Na-",
+  fixturesAccent: "Abịa",
+  fixturesFull: "Nhazi Zuru Ezu →",
+  fixturesFooter: "A ga-egosi egwuregwu ọ bụla kpọmkwem",
+  galleryEyebrow: "Ọnọdụ",
+  galleryTitle: "Nweta",
+  galleryAccent: "Mmasị",
+  sponsorsAuspices: "N'okpuru Ụlọ Ọrụ Onye Isi Ala",
+  sponsorsPartners: "Site na mmekọrịta ya na",
+  regJoin: "Sonye na Mmegharị",
+  regTitle: "Nnọchite",
+  regAccent: "mpaghara gị",
+  regLga: "Ule LGA",
+  regFree: "Enweghị ụgwọ",
+  regAge: "Ụdị afọ",
+  regFormTag: "Ndebanye Aha",
+  regName: "Aha Zuru Ezu",
+  regEmail: "Ozi-e",
+  regPhone: "Ekwentị",
+  regZone: "Mpaghara Gị",
+  regRole: "Ọrụ",
+  regSelectZone: "Họrọ mpaghara",
+  regSelectRole: "Họrọ ọrụ",
+  rolePlayer: "Onye egwuregwu",
+  roleCoach: "Onye nchịkọta",
+  roleVolunteer: "Onye afọ ofufo",
+  roleSupporter: "Onye nkwado",
+  regButton: "Chekwaa Ọnọdụ M",
+  regSubmitting: "Na-eziga…",
+  regSuccess: "Ị banyela!",
+  regAnother: "Debanye ọzọ",
+};
+
+const DICTS: Record<Lang, Dict> = { en, pcm, ha, yo, ig };
+
+type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (k: Keys) => string };
+const LangContext = createContext<Ctx | null>(null);
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [lang, setLangState] = useState<Lang>("en");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("unitycup-lang") as Lang | null;
+    if (saved && DICTS[saved]) setLangState(saved);
+  }, []);
+
+  const setLang = (l: Lang) => {
+    setLangState(l);
+    localStorage.setItem("unitycup-lang", l);
+  };
+
+  const t = (k: Keys) => DICTS[lang][k] ?? en[k] ?? String(k);
+
+  return (
+    <LangContext.Provider value={{ lang, setLang, t }}>{children}</LangContext.Provider>
+  );
+}
+
+export function useLang() {
+  const ctx = useContext(LangContext);
+  if (!ctx) throw new Error("useLang must be used within LanguageProvider");
+  return ctx;
+}

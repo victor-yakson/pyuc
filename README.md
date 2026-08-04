@@ -64,11 +64,22 @@ Without a key the form runs in **demo mode** (shows success without sending).
 - **Formspree / Getform / Basin** — same POST-to-endpoint model as Web3Forms.
 - **Google Apps Script → Google Sheets** — free, submissions land in a spreadsheet.
 
+## Nigeria zone map
+
+The Zones section can be viewed as an accurate **map of Nigeria** (default) or the
+**Unity Constellation**. The map is generated from real state boundaries, merged into the
+six geo-political zones, with the **FCT highlighted** in gold.
+
+- Geometry data: `src/data/nigeriaMap.ts` (auto-generated).
+- Regenerate: `node scripts/gen-map.mjs` (reads `scripts/nga-adm1.geojson`).
+- **Attribution:** state boundaries © [geoBoundaries](https://www.geoboundaries.org)
+  (gbOpen NGA ADM1), licensed **CC BY 4.0** — keep this credit if you publish.
+
 ## Customising
 
-- **Zones, teams, fixtures, imagery** → `src/data/zones.ts`
-- **Colours, fonts, animations** → `src/app/globals.css`
-- **Copy** → the relevant component in `src/components/`
+- **Zones, teams, fixtures, imagery, colours** → `src/data/zones.ts`
+- **Global colours, fonts, animations** → `src/app/globals.css`
+- **Copy / translations** → the relevant component, or `src/lib/i18n.tsx`
 
 Replace the Unsplash/Mixkit placeholder media in `src/data/zones.ts` with your own official
 photography and match footage before launch.

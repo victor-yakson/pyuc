@@ -179,7 +179,7 @@ export default function Hero() {
 
             <div className="grid grid-cols-3 gap-4 text-center">
               {[
-                { n: "7", l: t("sTeams") },
+                { n: "6", l: t("sTeams") },
                 { n: "36", l: t("sStates") },
                 { n: "₦250M", l: t("sPrize") },
               ].map((s) => (

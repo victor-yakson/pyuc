@@ -97,7 +97,7 @@ export default function NigeriaMap({
           );
         })}
 
-        {/* FCT — the capital, made to stand out */}
+        {/* Abuja — the federal capital & host city (within North Central), made to stand out */}
         <g>
           <path
             d={fct.d}
@@ -106,7 +106,7 @@ export default function NigeriaMap({
             strokeWidth={1.4}
             style={{ filter: "url(#fctGlow)" }}
           >
-            <title>FCT Abuja — Capital Guardians (Host)</title>
+            <title>Abuja — Federal Capital · Host City (North Central)</title>
           </path>
 
           {/* pulsing ring on the capital */}
@@ -136,7 +136,7 @@ export default function NigeriaMap({
               transform="translate(2 -6)"
             />
             <text x="28" y="1" dominantBaseline="middle" className="select-none font-heading" style={{ fontSize: 15, fill: "#f4c430", fontWeight: 700, letterSpacing: 1 }}>
-              FCT · ABUJA
+              ABUJA · CAPITAL
             </text>
           </g>
         </g>

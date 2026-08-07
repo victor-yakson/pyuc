@@ -3,14 +3,15 @@
 import { Crown, Trophy } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
-import { ZONES, FCT } from "@/data/zones";
+import { ZONES } from "@/data/zones";
 import { useLang } from "@/lib/i18n";
 
 const byId = Object.fromEntries(ZONES.map((z) => [z.id, z]));
-const team = (id: string) =>
-  id === "fct"
-    ? { short: FCT.short, name: FCT.team, color: FCT.color }
-    : { short: byId[id].short, name: byId[id].team, color: byId[id].color };
+const team = (id: string) => ({
+  short: byId[id].short,
+  name: byId[id].team,
+  color: byId[id].color,
+});
 
 type Side = { id: string; score?: number };
 type SemiMatch = { tag: string; home: Side; away: Side };
@@ -18,7 +19,7 @@ type SemiMatch = { tag: string; home: Side; away: Side };
 // Semi-finals have been played — the final & third-place auto-advance from these results.
 const SEMIS: SemiMatch[] = [
   { tag: "Semi-Final 1 · Dec 06", home: { id: "nw", score: 2 }, away: { id: "sw", score: 1 } },
-  { tag: "Semi-Final 2 · Dec 07", home: { id: "fct", score: 1 }, away: { id: "ne", score: 3 } },
+  { tag: "Semi-Final 2 · Dec 07", home: { id: "nc", score: 1 }, away: { id: "ne", score: 3 } },
 ];
 
 const winnerId = (m: SemiMatch) =>

@@ -167,7 +167,6 @@ export default function Register() {
                           {z.name}
                         </option>
                       ))}
-                      <option value="FCT Abuja">FCT Abuja</option>
                     </select>
                   </Field>
                   <Field label={t("regRole")}>

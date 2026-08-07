@@ -10,7 +10,7 @@ import NigeriaFlag from "./NigeriaFlag";
 import { ZONES, type Zone } from "@/data/zones";
 import { useLang } from "@/lib/i18n";
 
-// Position the 6 zones evenly around the FCT centre.
+// Position the 6 zones evenly around Abuja, the host capital, at the centre.
 const NODES = ZONES.map((z, i) => {
   const angle = (-90 + i * 60) * (Math.PI / 180);
   return {
@@ -117,14 +117,14 @@ export default function Zones() {
               {/* orbit ring */}
               <div className="absolute left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/10 animate-spin-slow" />
 
-              {/* FCT centre */}
+              {/* Abuja — the host capital at the centre */}
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div className="relative grid h-24 w-24 place-items-center rounded-full bg-gradient-to-br from-gold-soft to-gold-deep text-center shadow-[0_0_60px_-8px_rgba(244,196,48,0.8)] sm:h-28 sm:w-28">
                   <span className="absolute inset-0 rounded-full border border-gold/40" style={{ animation: "pulse-ring 2.6s ease-out infinite" }} />
                   <div>
-                    <div className="font-display text-xl text-ink sm:text-2xl">FCT</div>
+                    <div className="font-display text-xl text-ink sm:text-2xl">ABUJA</div>
                     <div className="font-heading text-[9px] font-bold uppercase tracking-widest text-ink/70">
-                      Abuja
+                      Host Capital
                     </div>
                   </div>
                 </div>

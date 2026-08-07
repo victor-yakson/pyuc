@@ -18,10 +18,10 @@ export default function About() {
   ];
 
   const STATS = [
-    { to: 7, suffix: "", label: t("stZonalTeams") },
+    { to: 6, suffix: "", label: t("stZonalTeams") },
     { to: 36, suffix: "", label: t("stStates") },
     { to: 774, suffix: "", label: t("stLGAs") },
-    { to: 200, suffix: "M+", label: t("stDream") },
+    { to: 280, suffix: "M+", label: t("stDream") },
   ];
 
   return (

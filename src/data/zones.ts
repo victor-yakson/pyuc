@@ -12,7 +12,7 @@ export type Zone = {
   blurb: string;
 };
 
-/** The six geo-political zones of Nigeria, with the FCT held as the unifying centre. */
+/** The six geo-political zones of Nigeria. The FCT (Abuja) sits within North Central and hosts the finals — it is not a separate team. */
 export const ZONES: Zone[] = [
   {
     id: "nc",
@@ -93,17 +93,6 @@ export const ZONES: Zone[] = [
     blurb: "Coastal swagger and a academy pipeline that never stops producing.",
   },
 ];
-
-export const FCT = {
-  id: "fct",
-  name: "FCT Abuja",
-  short: "FCT",
-  team: "Capital Guardians",
-  color: "#f4c430",
-  glow: "rgba(244,196,48,0.7)",
-  blurb:
-    "The seat of the nation and the beating centre of the PYUC — where the six zones converge as one.",
-};
 
 /** Royalty-free imagery (Unsplash). Used as CSS backgrounds so failures degrade to gradients. */
 export const IMG = {

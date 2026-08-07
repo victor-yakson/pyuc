@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, Trophy, Globe, Check } from "lucide-react";
-import Crest from "./Crest";
-import NigeriaFlag from "./NigeriaFlag";
+import Logo from "./Logo";
 import { LANGS, useLang } from "@/lib/i18n";
 
 export default function Navbar() {
@@ -36,17 +35,8 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 lg:px-8">
-        <a href="#top" className="group flex items-center gap-3">
-          <Crest className="h-10 w-10 transition-transform duration-500 group-hover:rotate-[8deg]" />
-          <NigeriaFlag className="hidden h-6 w-9 rounded-sm shadow-md sm:block" />
-          <div className="leading-none">
-            <div className="font-display text-lg tracking-wide text-cloud">
-              PY<span className="text-gradient-gold">UC</span>
-            </div>
-            <div className="font-heading text-[10px] uppercase tracking-[0.28em] text-naija-light/80">
-              Presidential Youth Unity Cup
-            </div>
-          </div>
+        <a href="#top" className="group flex items-center">
+          <Logo className="h-12 w-12 transition-transform duration-500 group-hover:rotate-[8deg]" />
         </a>
 
         <ul className="hidden items-center gap-7 lg:flex">

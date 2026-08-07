@@ -4,13 +4,13 @@ import { Landmark } from "lucide-react";
 import Reveal from "./Reveal";
 import { useLang } from "@/lib/i18n";
 
-const PARTNERS = [
-  "Federal Ministry of Youth",
-  "Nigeria Football Federation",
-  "National Sports Commission",
-  "Ministry of Sports Dev.",
-  "NYSC",
-  "Naija Unity Bank",
+const PARTNERS: { name: string; sub?: string }[] = [
+  { name: "Federal Ministry of Youth" },
+  { name: "Nigeria Football Federation" },
+  { name: "National Sports Commission" },
+  { name: "Ministry of Sports Dev." },
+  { name: "Soccer Link International", sub: "FIFA Licensed Player Agent" },
+  { name: "Naija Unity Bank" },
 ];
 
 export default function Sponsors() {
@@ -36,10 +36,15 @@ export default function Sponsors() {
           <div className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
             {PARTNERS.map((p) => (
               <div
-                key={p}
-                className="flex items-center justify-center rounded-xl border border-white/8 bg-white/[0.02] px-4 py-6 text-center font-heading text-xs uppercase tracking-wide text-cloud/50 transition-colors hover:border-white/20 hover:text-cloud/80"
+                key={p.name}
+                className="flex flex-col items-center justify-center gap-1 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-6 text-center font-heading text-xs uppercase tracking-wide text-cloud/50 transition-colors hover:border-white/20 hover:text-cloud/80"
               >
-                {p}
+                <span>{p.name}</span>
+                {p.sub && (
+                  <span className="text-[10px] tracking-wide text-gold/70">
+                    {p.sub}
+                  </span>
+                )}
               </div>
             ))}
           </div>

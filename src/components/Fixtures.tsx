@@ -3,20 +3,21 @@
 import { CalendarDays, Clock, MapPin, Tv } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
-import { ZONES, FCT } from "@/data/zones";
+import { ZONES } from "@/data/zones";
 import { useLang } from "@/lib/i18n";
 
 const byId = Object.fromEntries(ZONES.map((z) => [z.id, z]));
-const teamOf = (id: string) =>
-  id === "fct"
-    ? { short: "FCT", team: FCT.team, color: FCT.color }
-    : { short: byId[id].short, team: byId[id].team, color: byId[id].color };
+const teamOf = (id: string) => ({
+  short: byId[id].short,
+  team: byId[id].team,
+  color: byId[id].color,
+});
 
 const FIXTURES = [
   { home: "nw", away: "sw", date: "Sat 03 Oct", time: "16:00", venue: "MKO Abiola Stadium", stage: "Group A", odds: ["1.85", "3.40", "4.10"] },
-  { home: "fct", away: "se", date: "Sun 04 Oct", time: "18:00", venue: "National Stadium, Abuja", stage: "Group A", odds: ["2.05", "3.10", "3.60"] },
+  { home: "nc", away: "ne", date: "Sun 04 Oct", time: "18:00", venue: "National Stadium, Abuja", stage: "Group B", odds: ["2.05", "3.10", "3.60"] },
   { home: "ne", away: "ss", date: "Wed 07 Oct", time: "16:00", venue: "Ahmadu Bello Stadium", stage: "Group B", odds: ["2.30", "3.20", "3.00"] },
-  { home: "nc", away: "sw", date: "Sat 10 Oct", time: "19:00", venue: "Nnamdi Azikiwe Stadium", stage: "Group B", odds: ["2.60", "3.30", "2.70"] },
+  { home: "se", away: "sw", date: "Sat 10 Oct", time: "19:00", venue: "Nnamdi Azikiwe Stadium", stage: "Group A", odds: ["2.60", "3.30", "2.70"] },
 ];
 
 export default function Fixtures() {

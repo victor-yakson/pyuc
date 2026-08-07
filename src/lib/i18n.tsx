@@ -43,7 +43,7 @@ const en = {
   heroTitle1: "One Nation.",
   heroTitle2: "One Game.",
   heroSubtitle:
-    "Six geo-political zones. One Federal Capital at the heart. A single golden trophy — the nationwide tournament of the Office of the Presidency uniting every Nigerian youth through the beautiful game.",
+    "Six geo-political zones. One united nation. A single golden trophy — the nationwide tournament of the Office of the Presidency uniting every Nigerian youth through the beautiful Soccer.",
   ctaPrimary: "Represent Your Zone",
   ctaSecondary: "Watch The Trailer",
   location: "Grand Final · Eagle Stadium, Abuja · Live nationwide",
@@ -60,7 +60,7 @@ const en = {
   aboutTitle: "United By The",
   aboutAccent: "Beautiful Game",
   aboutSub:
-    "The Presidential Youth Unity Cup (PYUC) is more than a tournament. It is a national movement — convening the six geo-political zones and the Federal Capital Territory to prove that what unites Nigeria will always be greater than what divides her.",
+    "The Presidential Youth Unity Cup (PYUC) is more than a tournament. It is a national movement — convening the six geo-political zones to prove that what unites Nigeria will always be greater than what divides her.",
   pRepresentation: "Representation",
   pUnity: "Unity",
   pOpportunity: "Opportunity",
@@ -82,10 +82,10 @@ const en = {
   zonesTitle: "Six Zones,",
   zonesAccent: "One Capital",
   zonesSub:
-    "Tap a zone to meet the region. Every spoke leads to the FCT — the unifying heart where the six geo-political zones converge as one nation.",
+    "Tap a zone to meet the region. Every spoke leads to Abuja — the host capital where the six geo-political zones converge as one nation.",
   mapView: "Map",
   orbitView: "Constellation",
-  mapCaption: "Federal Republic of Nigeria · 6 geo-political zones + FCT",
+  mapCaption: "Federal Republic of Nigeria · 6 geo-political zones",
   // Format
   formatEyebrow: "The Road To Glory",
   formatTitle: "How Champions Are",
@@ -134,7 +134,7 @@ const en = {
   regTitle: "Represent your",
   regAccent: "zone",
   regSub:
-    "Players, coaches and supporters — register your interest and be part of the tournament uniting a nation. Trials open across all six zones and the FCT, with the Grand Final live at the Eagle Stadium, Abuja.",
+    "Players, coaches and supporters — register your interest and be part of the tournament uniting a nation. Trials open across all six geo-political zones, with the Grand Final live at the Eagle Stadium, Abuja.",
   regLga: "LGA trials",
   regFree: "To enter",
   regAge: "Age category",
@@ -160,7 +160,7 @@ const en = {
   regConduct: "By registering you agree to the tournament code of conduct.",
   // Footer
   footerTagline:
-    "One Nation. One Game. The Presidential Youth Unity Cup (PYUC) unites Nigeria's six geo-political zones and the Federal Capital Territory through the power of football — building the champions of tomorrow.",
+    "One Nation. One Game. The Presidential Youth Unity Cup (PYUC) unites Nigeria's six geo-political zones through the power of football — building the champions of tomorrow.",
 };
 
 type Keys = keyof typeof en;
@@ -176,7 +176,7 @@ const pcm: Dict = {
   heroTitle1: "One Nation.",
   heroTitle2: "One Game.",
   heroSubtitle:
-    "Six geo-political zones. One Federal Capital for di center. One golden trophy — na di nationwide tournament wey di Office of di Presidency dey use unite every Naija youth through di beautiful game.",
+    "Six geo-political zones. One united nation. One golden trophy — na di nationwide tournament wey di Office of di Presidency dey use unite every Naija youth through di beautiful Soccer.",
   ctaPrimary: "Represent Your Zone",
   ctaSecondary: "Watch Di Trailer",
   location: "Grand Final · Eagle Stadium, Abuja · Everybody go watch",
@@ -188,7 +188,7 @@ const pcm: Dict = {
   aboutTitle: "United By Di",
   aboutAccent: "Beautiful Game",
   aboutSub:
-    "Na more than tournament. Na national movement wey dey bring di six geo-political zones and di FCT together to show say wetin unite Naija pass wetin dey divide am.",
+    "Na more than tournament. Na national movement wey dey bring di six geo-political zones together to show say wetin unite Naija pass wetin dey divide am.",
   pRepresentation: "Representation",
   pUnity: "Unity",
   pOpportunity: "Opportunity",
@@ -209,7 +209,7 @@ const pcm: Dict = {
   zonesTitle: "Six Zones,",
   zonesAccent: "One Capital",
   zonesSub:
-    "Tap any zone to meet di region. Every line dey lead go di FCT — di center wey di six zones dey join as one nation.",
+    "Tap any zone to meet di region. Every line dey lead go Abuja — di host capital wey di six zones dey join as one nation.",
   formatEyebrow: "Road To Glory",
   formatTitle: "How Champions Dey",
   formatAccent: "Take Form",
@@ -251,7 +251,7 @@ const pcm: Dict = {
   regTitle: "Represent your",
   regAccent: "zone",
   regSub:
-    "Players, coaches and supporters — register your interest and be part of di tournament wey dey unite di nation. Trials dey open for all six zones and di FCT, and di Grand Final go dey live for Eagle Stadium, Abuja.",
+    "Players, coaches and supporters — register your interest and be part of di tournament wey dey unite di nation. Trials dey open for all six geo-political zones, and di Grand Final go dey live for Eagle Stadium, Abuja.",
   regLga: "LGA trials",
   regFree: "To enter",
   regAge: "Age category",
@@ -276,7 +276,7 @@ const pcm: Dict = {
   regError: "Something no work. Abeg try again small time.",
   regConduct: "As you register, you agree to di tournament code of conduct.",
   footerTagline:
-    "One Nation. One Game. Di Presidential Youth Unity Cup (PYUC) dey unite Naija six geo-political zones and di FCT through football — dey build di champions of tomorrow.",
+    "One Nation. One Game. Di Presidential Youth Unity Cup (PYUC) dey unite Naija six geo-political zones through football — dey build di champions of tomorrow.",
 };
 
 const ha: Dict = {

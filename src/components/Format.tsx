@@ -18,7 +18,7 @@ const STAGES = [
     tag: "Stage 02",
     title: "Group Stage",
     date: "Oct 2026",
-    body: "Seven teams — six zones plus the FCT hosts — battle in a round-robin at the National Stadium.",
+    body: "Six teams — one for each geo-political zone — battle in a round-robin at the National Stadium.",
   },
   {
     icon: Swords,

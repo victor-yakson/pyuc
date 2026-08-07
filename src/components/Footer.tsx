@@ -1,8 +1,7 @@
 "use client";
 
 import { Send, PlayCircle, Globe, MessageCircle } from "lucide-react";
-import Crest from "./Crest";
-import NigeriaFlag from "./NigeriaFlag";
+import Logo from "./Logo";
 import { useLang } from "@/lib/i18n";
 
 const NAV = [
@@ -30,17 +29,8 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
           {/* brand */}
           <div className="col-span-2 md:col-span-3">
-            <a href="#top" className="flex items-center gap-3">
-              <Crest className="h-11 w-11" />
-              <NigeriaFlag className="h-7 w-10 rounded-sm shadow-md" />
-              <div className="leading-none">
-                <div className="font-display text-xl tracking-wide text-cloud">
-                  PY<span className="text-gradient-gold">UC</span>
-                </div>
-                <div className="font-heading text-[10px] uppercase tracking-[0.26em] text-naija-light/80">
-                  Presidential Youth Unity Cup
-                </div>
-              </div>
+            <a href="#top" className="flex items-center">
+              <Logo className="h-14 w-14" />
             </a>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-cloud/55">
               {t("footerTagline")}

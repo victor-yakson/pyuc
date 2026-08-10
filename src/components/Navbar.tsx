@@ -17,6 +17,7 @@ export default function Navbar() {
     { href: "#bracket", label: t("navBracket") },
     { href: "#trophy", label: t("navTrophy") },
     { href: "#fixtures", label: t("navFixtures") },
+    { href: "#committee", label: "Committee" },
   ];
 
   useEffect(() => {

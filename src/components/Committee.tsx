@@ -24,7 +24,7 @@ const BROCHURE = "/pyuc-brochure-2026.pdf";
 
 export default function Committee() {
   return (
-    <section id="committee" className="relative py-24 lg:py-32">
+    <section id="committee" className="relative overflow-hidden py-24 lg:py-32">
       <div className="absolute left-1/2 top-1/3 -z-10 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-naija/12 blur-[130px]" />
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeading

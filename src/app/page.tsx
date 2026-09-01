@@ -1,3 +1,4 @@
+import NewsTicker from "@/components/NewsTicker";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
@@ -16,6 +17,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      <NewsTicker />
       <Navbar />
       <main className="flex-1">
         <Hero />

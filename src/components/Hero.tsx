@@ -72,7 +72,7 @@ export default function Hero() {
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/40 to-transparent" />
       <div className="absolute inset-0 -z-10 bg-pitch opacity-40" />
 
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-5 pt-28 pb-20 lg:grid-cols-12 lg:px-8">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-5 pt-36 pb-20 lg:grid-cols-12 lg:px-8">
         {/* Left: headline */}
         <div className="lg:col-span-7">
           <motion.div

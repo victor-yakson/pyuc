@@ -21,7 +21,7 @@ export default function About() {
     { to: 6, suffix: "", label: t("stZonalTeams") },
     { to: 36, suffix: "", label: t("stStates") },
     { to: 774, suffix: "", label: t("stLGAs") },
-    { to: 280, suffix: "M+", label: t("stDream") },
+    { to: 6, suffix: "M+", label: t("stRegistered") },
   ];
 
   return (

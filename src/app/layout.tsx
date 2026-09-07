@@ -25,7 +25,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Presidential Youth Unity Cup (PYUC) 2026 — Nigeria",
   description:
-    "One Nation. One Game. Six geo-political zones compete for the Golden Champion Trophy in the Presidential Youth Unity Cup (PYUC) — uniting Nigerian youth through football.",
+    "One Nation. One Game. Nigeria's six geo-political zones and the FCT compete for the Golden Champion Trophy in the Presidential Youth Unity Cup (PYUC) 2026 — uniting Nigerian youth through football.",
   keywords: [
     "Presidential Youth Unity Cup",
     "PYUC",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Presidential Youth Unity Cup (PYUC) 2026",
     description:
-      "Six zones. One Golden Champion Trophy. Uniting Nigerian youth through the beautiful Soccer.",
+      "Six geo-political zones and the FCT. One Golden Champion Trophy. Uniting Nigerian youth through the beautiful game.",
     type: "website",
   },
 };

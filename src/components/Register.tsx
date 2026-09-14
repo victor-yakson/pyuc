@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AlertCircle, CheckCircle2, Loader2, Trophy } from "lucide-react";
 import { ZONES, IMG } from "@/data/zones";
+import { NG_STATE_NAMES, NG_LGAS } from "@/data/nigeriaLgas";
 import Reveal from "./Reveal";
 import { useLang } from "@/lib/i18n";
 
@@ -11,17 +12,12 @@ import { useLang } from "@/lib/i18n";
 // Without a key the form runs in demo mode so the page still works out of the box.
 const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
 
-// All 36 states + FCT (derived from the zone data), for the "state of residence" field.
-const NG_RESIDENTIAL_STATES = [
-  ...ZONES.flatMap((z) => z.states),
-  "FCT (Abuja)",
-].sort((a, b) => a.localeCompare(b));
-
 type Status = "idle" | "loading" | "done" | "error";
 
 export default function Register() {
   const { t } = useLang();
   const [status, setStatus] = useState<Status>("idle");
+  const [resState, setResState] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -37,6 +33,7 @@ export default function Register() {
       setTimeout(() => {
         setStatus("done");
         form.reset();
+        setResState("");
       }, 1200);
       return;
     }
@@ -51,6 +48,7 @@ export default function Register() {
       if (json.success) {
         setStatus("done");
         form.reset();
+        setResState("");
       } else {
         setStatus("error");
       }
@@ -188,18 +186,45 @@ export default function Register() {
                   </Field>
                 </div>
 
-                <Field label={t("regResState")}>
-                  <select required name="residential_state" defaultValue="" className="field">
-                    <option value="" disabled>
-                      {t("regSelectState")}
-                    </option>
-                    {NG_RESIDENTIAL_STATES.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <Field label={t("regResState")}>
+                    <select
+                      required
+                      name="residential_state"
+                      value={resState}
+                      onChange={(e) => setResState(e.target.value)}
+                      className="field"
+                    >
+                      <option value="" disabled>
+                        {t("regSelectState")}
                       </option>
-                    ))}
-                  </select>
-                </Field>
+                      {NG_STATE_NAMES.map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
+                  <Field label={t("regLgaField")}>
+                    <select
+                      required
+                      name="residential_lga"
+                      key={resState}
+                      defaultValue=""
+                      disabled={!resState}
+                      className="field disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      <option value="" disabled>
+                        {resState ? t("regSelectLga") : t("regSelectStateFirst")}
+                      </option>
+                      {(NG_LGAS[resState] ?? []).map((l) => (
+                        <option key={l} value={l}>
+                          {l}
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
+                </div>
 
                 {status === "error" && (
                   <div className="flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">

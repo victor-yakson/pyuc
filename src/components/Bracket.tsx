@@ -1,66 +1,19 @@
 "use client";
 
-import { Crown, Trophy } from "lucide-react";
+import { Crown, Trophy, Info } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
-import { ZONES } from "@/data/zones";
 import { useLang } from "@/lib/i18n";
 
-const byId = Object.fromEntries(ZONES.map((z) => [z.id, z]));
-const team = (id: string) => ({
-  short: byId[id].short,
-  name: byId[id].team,
-  color: byId[id].color,
-});
-
-type Side = { id: string; score?: number };
-type SemiMatch = { tag: string; home: Side; away: Side };
-
-// Semi-finals have been played — the final & third-place auto-advance from these results.
-const SEMIS: SemiMatch[] = [
-  { tag: "Semi-Final 1 · Dec 06", home: { id: "nw", score: 2 }, away: { id: "sw", score: 1 } },
-  { tag: "Semi-Final 2 · Dec 07", home: { id: "nc", score: 1 }, away: { id: "ne", score: 3 } },
-];
-
-const winnerId = (m: SemiMatch) =>
-  (m.home.score ?? 0) >= (m.away.score ?? 0) ? m.home.id : m.away.id;
-const loserId = (m: SemiMatch) =>
-  (m.home.score ?? 0) >= (m.away.score ?? 0) ? m.away.id : m.home.id;
-
-type Slot = { id?: string; label?: string; score?: number; winner?: boolean };
-
-function TeamRow({ slot }: { slot: Slot }) {
-  if (!slot.id) {
-    return (
-      <div className="flex items-center gap-3 px-4 py-3 opacity-60">
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-dashed border-white/20 text-[10px] text-cloud/40">
-          ?
-        </span>
-        <span className="font-heading text-sm uppercase tracking-wide text-cloud/40">
-          {slot.label}
-        </span>
-      </div>
-    );
-  }
-  const tm = team(slot.id);
+// Registration phase — no matches have been played, so every slot is still open.
+function Slot({ label }: { label: string }) {
   return (
-    <div className={`flex items-center gap-3 px-4 py-3 ${slot.winner ? "bg-gold/10" : ""}`}>
-      <span
-        className="grid h-8 w-8 shrink-0 place-items-center rounded-md font-display text-xs text-ink"
-        style={{ background: tm.color }}
-      >
-        {tm.short}
+    <div className="flex items-center gap-3 px-4 py-3">
+      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-dashed border-white/25 text-[11px] text-cloud/40">
+        ?
       </span>
-      <span className="flex-1 truncate font-heading text-sm uppercase tracking-wide text-cloud">
-        {tm.name}
-      </span>
-      {slot.winner && (
-        <span className="rounded-full bg-gold/20 px-2 py-0.5 font-heading text-[9px] uppercase tracking-widest text-gold">
-          Q
-        </span>
-      )}
-      <span className={`font-display text-lg ${slot.winner ? "text-gold" : "text-cloud/45"}`}>
-        {slot.score ?? "–"}
+      <span className="font-heading text-sm uppercase tracking-wide text-cloud/55">
+        {label}
       </span>
     </div>
   );
@@ -73,8 +26,8 @@ function Match({
   gold = false,
 }: {
   tag: string;
-  home: Slot;
-  away: Slot;
+  home: string;
+  away: string;
   gold?: boolean;
 }) {
   return (
@@ -90,20 +43,16 @@ function Match({
       >
         <span>{tag}</span>
       </div>
-      <TeamRow slot={home} />
+      <Slot label={home} />
       <div className="mx-4 h-px bg-white/8" />
-      <TeamRow slot={away} />
+      <Slot label={away} />
     </div>
   );
 }
 
 export default function Bracket() {
   const { t } = useLang();
-
-  const finalHome = winnerId(SEMIS[0]);
-  const finalAway = winnerId(SEMIS[1]);
-  const thirdHome = loserId(SEMIS[0]);
-  const thirdAway = loserId(SEMIS[1]);
+  const tbd = t("bkTbd");
 
   return (
     <section id="bracket" className="relative py-24 lg:py-32">
@@ -117,30 +66,31 @@ export default function Bracket() {
           sub={t("bracketSub")}
         />
 
-        <div className="mt-16 grid items-center gap-8 lg:grid-cols-[1fr_auto_1fr]">
-          {/* Semi-finals (played) */}
+        {/* Registration-phase note */}
+        <Reveal>
+          <div className="mx-auto mt-8 flex max-w-2xl items-center justify-center gap-2 rounded-full border border-gold/25 bg-gold/5 px-5 py-2.5 text-center">
+            <Info className="h-4 w-4 shrink-0 text-gold" />
+            <span className="font-heading text-[11px] uppercase tracking-[0.16em] text-gold">
+              {t("bkPhaseNote")}
+            </span>
+          </div>
+        </Reveal>
+
+        <div className="mt-14 grid items-center gap-8 lg:grid-cols-[1fr_auto_1fr]">
+          {/* Semi-finals */}
           <Reveal className="space-y-10">
-            {SEMIS.map((m) => {
-              const w = winnerId(m);
-              return (
-                <Match
-                  key={m.tag}
-                  tag={m.tag}
-                  home={{ id: m.home.id, score: m.home.score, winner: w === m.home.id }}
-                  away={{ id: m.away.id, score: m.away.score, winner: w === m.away.id }}
-                />
-              );
-            })}
+            <Match tag="Semi-Final 1 · Dec 2026" home={tbd} away={tbd} />
+            <Match tag="Semi-Final 2 · Dec 2026" home={tbd} away={tbd} />
           </Reveal>
 
-          {/* Final — auto-advanced winners */}
+          {/* Final */}
           <Reveal delay={0.1} className="flex flex-col items-center gap-6">
             <div className="hidden h-16 w-px bg-gradient-to-b from-transparent to-gold/40 lg:block" />
             <div className="w-full max-w-xs lg:w-80">
               <Match
-                tag="Grand Final · Dec 14"
-                home={{ id: finalHome }}
-                away={{ id: finalAway }}
+                tag="Grand Final · Dec 2026"
+                home={t("bkWinnerSf1")}
+                away={t("bkWinnerSf2")}
                 gold
               />
             </div>
@@ -164,7 +114,7 @@ export default function Bracket() {
           </Reveal>
         </div>
 
-        {/* Third place — auto-advanced losers */}
+        {/* Third place */}
         <Reveal delay={0.1}>
           <div className="mx-auto mt-12 max-w-md overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
             <div className="flex items-center gap-2 border-b border-white/8 px-5 py-2.5 text-cloud/50">
@@ -173,9 +123,9 @@ export default function Bracket() {
                 {t("bkThirdTag")}
               </span>
             </div>
-            <TeamRow slot={{ id: thirdHome }} />
+            <Slot label={t("bkLoserSf1")} />
             <div className="mx-4 h-px bg-white/8" />
-            <TeamRow slot={{ id: thirdAway }} />
+            <Slot label={t("bkLoserSf2")} />
           </div>
         </Reveal>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDays, Clock, MapPin, Tv } from "lucide-react";
+import { CalendarDays, Clock, Info, MapPin, Tv } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import { ZONES } from "@/data/zones";
@@ -14,10 +14,10 @@ const teamOf = (id: string) => ({
 });
 
 const FIXTURES = [
-  { home: "nw", away: "sw", date: "Sat 03 Oct", time: "16:00", venue: "MKO Abiola Stadium", stage: "Group A", odds: ["1.85", "3.40", "4.10"] },
-  { home: "nc", away: "ne", date: "Sun 04 Oct", time: "18:00", venue: "National Stadium, Abuja", stage: "Group B", odds: ["2.05", "3.10", "3.60"] },
-  { home: "ne", away: "ss", date: "Wed 07 Oct", time: "16:00", venue: "Ahmadu Bello Stadium", stage: "Group B", odds: ["2.30", "3.20", "3.00"] },
-  { home: "se", away: "sw", date: "Sat 10 Oct", time: "19:00", venue: "Nnamdi Azikiwe Stadium", stage: "Group A", odds: ["2.60", "3.30", "2.70"] },
+  { home: "nw", away: "sw", date: "Sat 03 Oct", time: "16:00", venue: "MKO Abiola Stadium", stage: "Group A" },
+  { home: "nc", away: "ne", date: "Sun 04 Oct", time: "18:00", venue: "National Stadium, Abuja", stage: "Group B" },
+  { home: "ne", away: "ss", date: "Wed 07 Oct", time: "16:00", venue: "Ahmadu Bello Stadium", stage: "Group B" },
+  { home: "se", away: "sw", date: "Sat 10 Oct", time: "19:00", venue: "Nnamdi Azikiwe Stadium", stage: "Group A" },
 ];
 
 export default function Fixtures() {
@@ -42,7 +42,13 @@ export default function Fixtures() {
           </Reveal>
         </div>
 
-        <div className="mt-12 space-y-4">
+        <Reveal>
+          <p className="mt-6 flex items-center gap-2 text-xs text-cloud/45">
+            <Info className="h-4 w-4 shrink-0 text-gold" /> {t("fixturesNote")}
+          </p>
+        </Reveal>
+
+        <div className="mt-8 space-y-4">
           {FIXTURES.map((f, i) => {
             const home = teamOf(f.home);
             const away = teamOf(f.away);
@@ -102,21 +108,11 @@ export default function Fixtures() {
                     {f.venue}
                   </div>
 
-                  {/* odds (sportsbook flavour) */}
-                  <div className="lg:col-span-2">
-                    <div className="grid grid-cols-3 gap-2">
-                      {f.odds.map((o, j) => (
-                        <div
-                          key={j}
-                          className="rounded-lg border border-white/10 bg-ink-2/60 py-2 text-center transition-colors group-hover:border-gold/30"
-                        >
-                          <div className="font-heading text-[9px] uppercase tracking-wider text-cloud/40">
-                            {["1", "X", "2"][j]}
-                          </div>
-                          <div className="font-semibold text-cloud">{o}</div>
-                        </div>
-                      ))}
-                    </div>
+                  {/* status */}
+                  <div className="flex lg:col-span-2 lg:justify-end">
+                    <span className="rounded-full border border-gold/25 bg-gold/10 px-3 py-1.5 font-heading text-[10px] uppercase tracking-widest text-gold">
+                      {t("fixturesProvisional")}
+                    </span>
                   </div>
                 </div>
               </Reveal>

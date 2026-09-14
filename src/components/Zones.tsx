@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { MapPin, Shield, Star, TrendingUp } from "lucide-react";
+import { MapPin, Shield, Star } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import NigeriaMap from "./NigeriaMap";
@@ -19,22 +19,6 @@ const NODES = ZONES.map((z, i) => {
     y: 50 + 39 * Math.sin(angle),
   };
 });
-
-function FormPips({ form }: { form: Zone["form"] }) {
-  const map = { W: "bg-naija-light", D: "bg-gold", L: "bg-white/25" };
-  return (
-    <div className="flex gap-1.5">
-      {form.map((f, i) => (
-        <span
-          key={i}
-          className={`grid h-6 w-6 place-items-center rounded-md text-[10px] font-bold text-ink ${map[f]}`}
-        >
-          {f}
-        </span>
-      ))}
-    </div>
-  );
-}
 
 export default function Zones() {
   const { t } = useLang();
@@ -221,21 +205,14 @@ export default function Zones() {
                     <div className="flex items-center gap-2 text-cloud/50">
                       <Star className="h-4 w-4" />
                       <span className="font-heading text-[10px] uppercase tracking-widest">
-                        Seed
+                        Status
                       </span>
                     </div>
-                    <div className="mt-1 font-semibold text-cloud">#{active.seed} Ranked</div>
+                    <div className="mt-1 flex items-center gap-2 font-semibold text-cloud">
+                      <span className="h-2 w-2 rounded-full bg-naija-light" />
+                      Registering
+                    </div>
                   </div>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between rounded-xl border border-white/10 bg-ink-2/50 p-4">
-                  <div className="flex items-center gap-2 text-cloud/50">
-                    <TrendingUp className="h-4 w-4" />
-                    <span className="font-heading text-[10px] uppercase tracking-widest">
-                      Recent Form
-                    </span>
-                  </div>
-                  <FormPips form={active.form} />
                 </div>
 
                 <div className="mt-5">

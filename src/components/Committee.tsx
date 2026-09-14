@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, FileText, Users } from "lucide-react";
+import { Award, Download, FileText, Users } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 
@@ -34,6 +34,40 @@ export default function Committee() {
           align="center"
           sub="Unanimous support for youth empowerment — the team delivering the Presidential Youth Unity Cup 2026 under the Office of the Presidency."
         />
+
+        {/* Ambassador spotlight */}
+        <Reveal className="mt-14">
+          <div className="mx-auto grid max-w-4xl grid-cols-1 overflow-hidden rounded-3xl glass glass-gold shadow-premium sm:grid-cols-[minmax(0,300px)_1fr]">
+            {/* photo */}
+            <div className="relative bg-naija-dark">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/seisei.jpg"
+                alt="Samson Siasia — PYUC 2026 Project Ambassador, in the Nigeria Super Eagles kit"
+                width={720}
+                height={1024}
+                loading="lazy"
+                decoding="async"
+                className="h-full max-h-[440px] w-full object-cover object-top"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:to-ink/30" />
+            </div>
+            {/* text */}
+            <div className="flex flex-col justify-center gap-4 p-8 lg:p-10">
+              <div className="inline-flex w-fit items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 font-heading text-[11px] uppercase tracking-[0.2em] text-gold">
+                <Award className="h-3.5 w-3.5" /> Project Ambassador
+              </div>
+              <h3 className="font-display text-[clamp(2rem,5vw,3.25rem)] uppercase leading-none text-cloud">
+                Samson <span className="text-gradient-gold">Siasia</span>
+              </h3>
+              <p className="leading-relaxed text-cloud/70">
+                Former Super Eagles forward and Olympic silver-medal-winning coach, Samson
+                Siasia carries the PYUC message to every zone — inspiring a new generation
+                of Nigerian talent through the beautiful game.
+              </p>
+            </div>
+          </div>
+        </Reveal>
 
         {/* Committee graphic */}
         <Reveal className="mt-14">

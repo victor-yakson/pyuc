@@ -10,11 +10,12 @@ type Member = { name: string; role: string; tag: string; lead?: boolean };
 const MEMBERS: Member[] = [
   { name: "Sani Lawal Dalhatu", role: "President, Soccer Link International & PYUC Chairman", tag: "Chairman", lead: true },
   { name: "Ibrahim Bello", role: "National Coordinator", tag: "NC" },
+  { name: "Uthman Bello", role: "Chief Operating Officer", tag: "COO" },
   { name: "Collins Ujuuchendu", role: "Project Development Director", tag: "PDD" },
   { name: "Bamu Gift", role: "Chief Technology Officer", tag: "CTO" },
-  { name: "Urmar Sani Dayabu", role: "Public Relations Director", tag: "PRD" },
   { name: "Samson Siasia", role: "Project Ambassador", tag: "PA" },
   { name: "Bala Tokurah", role: "Finance & Admin Director", tag: "FAD" },
+  { name: "Mohammed Salamtu", role: "Media & Publicity", tag: "MP" },
   { name: "Rose Uba Ifeakandu", role: "Project Secretary", tag: "PS" },
   { name: "Adeyemi Adebayo", role: "Project Treasurer", tag: "PT" },
   { name: "Yakubu Victor", role: "Social Media Manager", tag: "SMM" },

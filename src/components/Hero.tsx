@@ -8,7 +8,7 @@ import { useLang } from "@/lib/i18n";
 import { useTrailer } from "./TrailerModal";
 import NigeriaFlag from "./NigeriaFlag";
 
-const KICKOFF = new Date("2026-10-01T16:00:00+01:00"); // Independence Day kickoff
+const KICKOFF = new Date("2026-11-26T16:00:00+01:00"); // Tournament kick-off
 
 function useCountdown(target: Date) {
   const [t, setT] = useState({ d: 0, h: 0, m: 0, s: 0 });
@@ -155,7 +155,7 @@ export default function Hero() {
                 {t("cdTitle")}
               </span>
               <span className="rounded-full bg-naija/20 px-3 py-1 font-heading text-[11px] uppercase tracking-widest text-naija-light">
-                Oct 1, 2026
+                Nov 26, 2026
               </span>
             </div>
 

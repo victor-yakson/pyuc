@@ -79,8 +79,8 @@ export default function Bracket() {
         <div className="mt-14 grid items-center gap-8 lg:grid-cols-[1fr_auto_1fr]">
           {/* Semi-finals */}
           <Reveal className="space-y-10">
-            <Match tag="Semi-Final 1 · Dec 2026" home={tbd} away={tbd} />
-            <Match tag="Semi-Final 2 · Dec 2026" home={tbd} away={tbd} />
+            <Match tag="Semi-Final 1 · 09 Dec 2026" home={tbd} away={tbd} />
+            <Match tag="Semi-Final 2 · 10 Dec 2026" home={tbd} away={tbd} />
           </Reveal>
 
           {/* Final */}
@@ -88,7 +88,7 @@ export default function Bracket() {
             <div className="hidden h-16 w-px bg-gradient-to-b from-transparent to-gold/40 lg:block" />
             <div className="w-full max-w-xs lg:w-80">
               <Match
-                tag="Grand Final · Dec 2026"
+                tag="Grand Final · 14 Dec 2026"
                 home={t("bkWinnerSf1")}
                 away={t("bkWinnerSf2")}
                 gold

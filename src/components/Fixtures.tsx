@@ -14,10 +14,10 @@ const teamOf = (id: string) => ({
 });
 
 const FIXTURES = [
-  { home: "nw", away: "sw", date: "Sat 03 Oct", time: "16:00", venue: "MKO Abiola Stadium", stage: "Group A" },
-  { home: "nc", away: "ne", date: "Sun 04 Oct", time: "18:00", venue: "National Stadium, Abuja", stage: "Group B" },
-  { home: "ne", away: "ss", date: "Wed 07 Oct", time: "16:00", venue: "Ahmadu Bello Stadium", stage: "Group B" },
-  { home: "se", away: "sw", date: "Sat 10 Oct", time: "19:00", venue: "Nnamdi Azikiwe Stadium", stage: "Group A" },
+  { home: "nw", away: "sw", date: "Thu 26 Nov", time: "16:00", venue: "National Stadium, Abuja", stage: "Group A" },
+  { home: "nc", away: "ne", date: "Fri 27 Nov", time: "18:00", venue: "MKO Abiola Stadium", stage: "Group B" },
+  { home: "ne", away: "ss", date: "Sun 29 Nov", time: "16:00", venue: "Ahmadu Bello Stadium", stage: "Group B" },
+  { home: "se", away: "sw", date: "Wed 02 Dec", time: "19:00", venue: "Nnamdi Azikiwe Stadium", stage: "Group A" },
 ];
 
 export default function Fixtures() {
@@ -122,7 +122,7 @@ export default function Fixtures() {
 
         <Reveal>
           <div className="mt-8 flex items-center justify-center gap-2 text-xs text-cloud/40">
-            <Tv className="h-4 w-4" /> {t("fixturesFooter")} • <CalendarDays className="h-4 w-4" /> Grand Final · Dec 2026 · Eagle Stadium, Abuja
+            <Tv className="h-4 w-4" /> {t("fixturesFooter")} • <CalendarDays className="h-4 w-4" /> Grand Final · 14 Dec 2026 · Eagle Stadium, Abuja
           </div>
         </Reveal>
       </div>
